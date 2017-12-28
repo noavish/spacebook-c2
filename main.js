@@ -50,7 +50,18 @@ function getCommentsHTML(comments){
 function renderPosts() {
     $('.posts').find('.post').remove();
     for (let i = 0; i < posts.length; i++) {
-        $('.posts').append(`<div class='post' data-id='${posts[i].postID}'> <button type="button" class="remove">Remove</button> <span>${posts[i].postName} </span><form> <input name='userName' type='text'> <input name='comment' type='text'><button type='button' class='post-comment'> Post Comment </button></form>${getCommentsHTML(posts[i].commentsList)}</div>`);
+        $('.posts').append(`<div class='post' data-id='${posts[i].postID}'> 
+                                <button type="button" class="remove">Remove</button> 
+                                <span>
+                                    ${posts[i].postName} 
+                                </span>
+                                <form> 
+                                    <input name='userName' type='text' required> 
+                                    <input name='comment' type='text' required>
+                                    <button type='button' class='post-comment'> Post Comment </button>
+                                </form>
+                                ${getCommentsHTML(posts[i].commentsList)}
+                            </div>`);
     }
 };
 
