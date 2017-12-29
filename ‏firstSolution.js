@@ -70,6 +70,13 @@ $('.add-post').click(function () {
     renderPosts();
 });
 
+$('.posts').on('click', '.remove-comment', function () {
+    var postID = $(this).parents('.post').data().id;
+    var commentToRemove = $(this).closest('li');
+    var post = findPost(postID);
+    removeComment(post, commentToRemove);
+});
+
 $('.posts').on('click', '.remove', function () {
     var postID = $(this).parents('.post').data().id;
     removePosts(postID);
@@ -83,11 +90,3 @@ $('.posts').on('click', '.post-comment', function () {
     renderPosts();
     return;
 });
-
-$('.posts').on('click', '.remove-comment', function () {
-    var postID = $(this).parents('.post').data().id;
-    var commentToRemove = $(this).closest('li');
-    var post = findPost(postID);
-    removeComment(post, commentToRemove);
-});
-
