@@ -1,3 +1,7 @@
 .posts {
     margin: auto;
 }
+
+li {
+    list-style: none;
+}
