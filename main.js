@@ -7,6 +7,7 @@ function newPost(postName) {
     randomID++;
 };
 
+//create and push new comments
 function newComment(postID, userName, comment) {
     var post = findPost(postID);
     post.commentsList.push({ userName: userName, comment: comment });
