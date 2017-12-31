@@ -1,6 +1,7 @@
 var posts = [];
 var randomID = 1;
 
+//create and push new posts
 function newPost(postName) {
     posts.push({ postName: postName, postID: randomID, commentsList: [] });
     randomID++;
