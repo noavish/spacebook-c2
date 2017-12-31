@@ -30,24 +30,23 @@
     </div>
   </div>
   <script id="post-template" type="text/x-handlebars-template">
-    <div class="post" data-id={{id}}>
+    <div class="post" data-id="{{id}}">
       <a href="#" class="remove">remove</a>
       <a href="#" class="show-comments">comments</a>
       {{text}}
-      <div class="comments-container"></div>
+      <div class="comments-container">
+          <input type="text" class="comment-name">
+          <button class="btn btn-primary add-comment">Post Comment</button> 
+          <ul class="comment-list" data-id="{{id}}">
+          </ul> 
+      </div>
     </div>
   </script>
 
   <script id="comment-template" type="text/x-handlebars-template">
-        <input type="text" class="comment-name">
-        <button class="btn btn-primary add-comment">Post Comment</button> 
-        <ul class="comment-list"> 
-          {{#each menu}}
-            {{#if socialNetwork}}
-              <li><a href='#' class='fa fa-trash trash'></a>{{text}}</li>
-            {{/if}}
-          {{/each}}
-        </ul>
+    {{#each comments}}
+      <li><a href='#' class='fa fa-trash trash'></a>{{text}}</li>
+    {{/each}}
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>

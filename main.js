@@ -17,6 +17,12 @@ var SpacebookApp = function () {
         // ]}
     ];
 
+    var postSource = $('#post-template').html();
+    var postTemplate = Handlebars.compile(postSource);
+
+    var commentSource = $('#comment-template').html();
+    var commentTemplate = Handlebars.compile(commentSource);
+
     // the current id to assign to a post
     var currentId = 0;
     var $posts = $('.posts');
@@ -42,27 +48,10 @@ var SpacebookApp = function () {
 
     var renderPosts = function () {
         $posts.empty();
-
         for (var i = 0; i < posts.length; i += 1) {
             var post = posts[i];
-            // var commentsContainer = '<div class="comments-container">' +
-            //     '<input type="text" class="comment-name">' +
-            //     '<button class="btn btn-primary add-comment">Post Comment</button> <ul></ul></div>';
-               
-                var source = $('#post-template').html();
-                var template = Handlebars.compile(source);
-                var newHTML = template(posts[i]);
-                $('.posts').append(newHTML);
-
-                var source = $('#comment-template').html();
-                var template = Handlebars.compile(source);
-                var newHTML = template(post[i]);
-                
-                $('.comment-list').append(newHTML);
-        
-            // $posts.append('<div class="post" data-id=' + post.id + '>'
-            //     + '<a href="#" class="remove">remove</a> ' + '<a href="#" class="show-comments">comments</a> ' + post.text +
-            //     commentsContainer + '</div>');
+            var newHTML = postTemplate(post);
+            $('.posts').append(newHTML);
             renderComments($(`.post[data-id=${post.id}]`).children('.comments-container').children('.add-comment'));
         }
     }
@@ -97,15 +86,9 @@ var SpacebookApp = function () {
         var $clickedPost = $(commentBtn).closest('.post');
         var id = $clickedPost.data().id;
         var post = _findPostById(id);
-        if (!('comments' in post)) {
-            return '';
-        }
-        var commentList = '';
-        for (var i = 0; i < post.comments.length; i++) {
-            commentList += "<li><a href='#' class='fa fa-trash trash'></a>" + post.comments[i].text + "</li>";
-        }
+        var newHTML = commentTemplate(post);
         $clickedPost.find('ul').empty();
-        $clickedPost.find('ul').append(commentList);
+        $clickedPost.find('ul').append(newHTML);
     }
 
     var removeComment = function (removeCommentBtn) {
