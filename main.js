@@ -48,7 +48,8 @@ var SpacebookApp = function () {
             var commentsContainer = '<div class="comments-container">' +
                 '<input type="text" class="comment-name">' +
                 '<button class="btn btn-primary add-comment">Post Comment</button> <ul></ul></div>';
-            
+                var source = $('#menu-template').html();
+        
             $posts.append('<div class="post" data-id=' + post.id + '>'
                 + '<a href="#" class="remove">remove</a> ' + '<a href="#" class="show-comments">comments</a> ' + post.text +
                 commentsContainer + '</div>');
