@@ -45,15 +45,25 @@ var SpacebookApp = function () {
 
         for (var i = 0; i < posts.length; i += 1) {
             var post = posts[i];
-            var commentsContainer = '<div class="comments-container">' +
-                '<input type="text" class="comment-name">' +
-                '<button class="btn btn-primary add-comment">Post Comment</button> <ul></ul></div>';
+            // var commentsContainer = '<div class="comments-container">' +
+            //     '<input type="text" class="comment-name">' +
+            //     '<button class="btn btn-primary add-comment">Post Comment</button> <ul></ul></div>';
+               
+                var source = $('#post-template').html();
+                var template = Handlebars.compile(source);
+                var newHTML = template(posts[i]);
+                $('.posts').append(newHTML);
+
                 var source = $('#menu-template').html();
+                var template = Handlebars.compile(source);
+                var newHTML = template(menuData);
+                
+                $('.menu').append(newHTML);
         
-            $posts.append('<div class="post" data-id=' + post.id + '>'
-                + '<a href="#" class="remove">remove</a> ' + '<a href="#" class="show-comments">comments</a> ' + post.text +
-                commentsContainer + '</div>');
-            renderComments($(`.post[data-id=${post.id}]`).children('.comments-container').children('.add-comment'));
+            // $posts.append('<div class="post" data-id=' + post.id + '>'
+            //     + '<a href="#" class="remove">remove</a> ' + '<a href="#" class="show-comments">comments</a> ' + post.text +
+            //     commentsContainer + '</div>');
+            // renderComments($(`.post[data-id=${post.id}]`).children('.comments-container').children('.add-comment'));
         }
     }
 
@@ -83,20 +93,20 @@ var SpacebookApp = function () {
         post.comments.push({ text: comment });
     }
 
-    var renderComments = function (commentBtn) {
-        var $clickedPost = $(commentBtn).closest('.post');
-        var id = $clickedPost.data().id;
-        var post = _findPostById(id);
-        if (!('comments' in post)) {
-            return '';
-        }
-        var commentList = '';
-        for (var i = 0; i < post.comments.length; i++) {
-            commentList += "<li><a href='#' class='fa fa-trash trash'></a>" + post.comments[i].text + "</li>";
-        }
-        $clickedPost.find('ul').empty();
-        $clickedPost.find('ul').append(commentList);
-    }
+    // var renderComments = function (commentBtn) {
+    //     var $clickedPost = $(commentBtn).closest('.post');
+    //     var id = $clickedPost.data().id;
+    //     var post = _findPostById(id);
+    //     if (!('comments' in post)) {
+    //         return '';
+    //     }
+    //     var commentList = '';
+    //     for (var i = 0; i < post.comments.length; i++) {
+    //         commentList += "<li><a href='#' class='fa fa-trash trash'></a>" + post.comments[i].text + "</li>";
+    //     }
+    //     $clickedPost.find('ul').empty();
+    //     $clickedPost.find('ul').append(commentList);
+    // }
 
     var removeComment = function (removeCommentBtn) {
         var $clickedPost = $(removeCommentBtn).closest('.post');
@@ -112,7 +122,7 @@ var SpacebookApp = function () {
         renderPosts: renderPosts,
         removePost: removePost,
         createComment: createComment,
-        renderComments: renderComments,
+        // renderComments: renderComments,
         removeComment: removeComment,
         toggleComments: toggleComments
     }
