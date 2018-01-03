@@ -16,7 +16,7 @@ var SpacebookApp = function () {
         //   { text: "Man, this is a comment!"}
         // ]}
     ];
-
+    
     var postSource = $('#post-template').html();
     var postTemplate = Handlebars.compile(postSource);
 
@@ -85,10 +85,10 @@ var SpacebookApp = function () {
     var renderComments = function (commentBtn) {
         var $clickedPost = $(commentBtn).closest('.post');
         var id = $clickedPost.data().id;
-        var post = _findPostById(id);
-        var newHTML = commentTemplate(post);
-        $clickedPost.find('ul').empty();
-        $clickedPost.find('ul').append(newHTML);
+        // var post = _findPostById(id);
+        // var newHTML = commentTemplate(post);
+        // $clickedPost.find('ul').empty();
+        // $clickedPost.find('ul').append(newHTML);
     }
 
     var removeComment = function (removeCommentBtn) {
@@ -98,7 +98,6 @@ var SpacebookApp = function () {
         var commentToRemove = $(removeCommentBtn).closest('li');
         post.comments.splice(commentToRemove.index(), 1);
     }
-
 
     return {
         createPost: createPost,
