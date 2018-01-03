@@ -1,28 +1,20 @@
 var SpacebookApp = function () {
   // dummy data
-  var posts = [
-    {
-      text: "Hello world 1", comments: [
-        { text: "Man, this is a comment 1!" },
-        { text: "Man, this is a comment 2!" },
-        { text: "Man, this is a comment 3!" }
-      ]
-    },
-    {
-      text: "Hello world 2", comments: [
-        { text: "Man, this is a comment 1!" },
-        { text: "Man, this is a comment 2!" },
-        { text: "Man, this is a comment 3!" }
-      ]
-    },
-    {
-      text: "Hello world 3", comments: [
-        { text: "Man, this is a comment 1!" },
-        { text: "Man, this is a comment 2!" },
-        { text: "Man, this is a comment 3!" }
-      ]
-    }
-  ];
+
+  var STORAGE_ID = 'spacebook';
+  
+  var saveToLocalStorage = function () {
+    localStorage.setItem(STORAGE_ID, JSON.stringify(posts));
+  }
+
+  var getFromLocalStorage = function () {
+            return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');
+  
+  }
+
+  var posts = getFromLocalStorage();
+
+  
 
   // render posts to page
   // this function empties the posts div, 
@@ -30,10 +22,10 @@ var SpacebookApp = function () {
   // along with the appropriate HTML
   var _renderPosts = function () {
     // variable for storing our posts div
+    
     var $posts = $('.posts');
 
     $posts.empty();
-
     for (var i = 0; i < posts.length; i += 1) {
       var post = posts[i];
       var commentsContainer = '<div class="comments-container">' + '<ul class=comments-list></ul>' +
@@ -49,7 +41,6 @@ var SpacebookApp = function () {
   var _renderComments = function () {
     //empty all the comments - from all posts!!!
     $('.comments-list').empty();
-
     for (var i = 0; i < posts.length; i += 1) {
       // the current post in the iteration
       var post = posts[i];
@@ -76,12 +67,14 @@ var SpacebookApp = function () {
   // build a single post object and push it to array
   var createPost = function (text) {
     posts.push({ text: text, comments: [] });
+    saveToLocalStorage();
     _renderPosts();
     _renderComments();
   };
 
   var removePost = function ($clickedPost, index) {
     posts.splice(index, 1);
+    saveToLocalStorage();
     $clickedPost.remove();
   };
 
@@ -90,6 +83,7 @@ var SpacebookApp = function () {
 
     // pushing the comment into the correct posts array
     posts[postIndex].comments.push(comment);
+    saveToLocalStorage();
     //render comments
     _renderComments();
   };
@@ -97,6 +91,7 @@ var SpacebookApp = function () {
   var removeComment = function ($clickedComment, commentIndex, postIndex) {
     // remove the comment from the comments array on the correct post object
     posts[postIndex].comments.splice(commentIndex, 1);
+    saveToLocalStorage();
     // removing the comment from the page
     $clickedComment.remove();
   };
