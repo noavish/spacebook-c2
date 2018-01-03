@@ -85,10 +85,10 @@ var SpacebookApp = function () {
     var renderComments = function (commentBtn) {
         var $clickedPost = $(commentBtn).closest('.post');
         var id = $clickedPost.data().id;
-        // var post = _findPostById(id);
-        // var newHTML = commentTemplate(post);
-        // $clickedPost.find('ul').empty();
-        // $clickedPost.find('ul').append(newHTML);
+        var post = _findPostById(id);
+        var newHTML = commentTemplate(post);
+        $clickedPost.find('ul').empty();
+        $clickedPost.find('ul').append(newHTML);
     }
 
     var removeComment = function (removeCommentBtn) {
