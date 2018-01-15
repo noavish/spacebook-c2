@@ -1,18 +1,8 @@
 var SpacebookApp = function () {
-    var STORAGE_ID = 'spacebook';
-    var RUNNING_ID = 'spacebook-id'
-    
-    var saveToLocalStorage = function () {
-      localStorage.setItem(STORAGE_ID, JSON.stringify(posts));
-      localStorage.setItem(RUNNING_ID, currentId);
-    }
-  
-    var getFromLocalStorage = function () {
-        return JSON.parse(localStorage.getItem(STORAGE_ID) || '[]');   
-    }
-  
-    var posts = getFromLocalStorage();
-    var currentId = localStorage.getItem(RUNNING_ID) || 0;
+    var posts = [];
+    var $posts = $(".posts");
+
+    renderPosts();
 
     var postSource = $('#post-template').html();
     var postTemplate = Handlebars.compile(postSource);
@@ -22,9 +12,7 @@ var SpacebookApp = function () {
 
     // the current id to assign to a post
     
-    var $posts = $('.posts');
-
-    var _findPostById = function (id) {
+        var _findPostById = function (id) {
         for (var i = 0; i < posts.length; i += 1) {
             if (posts[i].id === id) {
                 return posts[i];
@@ -41,7 +29,6 @@ var SpacebookApp = function () {
         currentId += 1;
 
         posts.push(post);
-        saveToLocalStorage();
     }
 
     var renderPosts = function () {
@@ -62,7 +49,6 @@ var SpacebookApp = function () {
 
         posts.splice(posts.indexOf(post), 1);
         $clickedPost.remove();
-        saveToLocalStorage();
     }
 
     var toggleComments = function (currentPost) {
@@ -79,7 +65,6 @@ var SpacebookApp = function () {
             post.comments = [];
         }
         post.comments.push({ text: comment });
-        saveToLocalStorage();
     }
 
     var renderComments = function (commentBtn) {
@@ -97,7 +82,6 @@ var SpacebookApp = function () {
         var post = _findPostById(id);
         var commentToRemove = $(removeCommentBtn).closest('li');
         post.comments.splice(commentToRemove.index(), 1);
-        saveToLocalStorage();
     }
 
     return {
