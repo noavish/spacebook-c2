@@ -14,9 +14,10 @@ var commentSchema = new mongoose.Schema({
 var postSchema = new mongoose.Schema({
     postText: String,
     comments: [commentSchema]
-});
+}, { usePushEach: true });
 
 var Post = mongoose.model('post', postSchema);
+
 
 var cb =function (err,data) {
     if (err) {
@@ -27,5 +28,7 @@ var cb =function (err,data) {
 };
 
 module.exports = Post;
+
+
 
 

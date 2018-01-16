@@ -83,7 +83,7 @@ var SpacebookApp = function() {
             console.log(newComment);
             $.ajax({
                 type: "POST",
-                url: `posts/${id}/comments/newComment`,
+                url: `posts/${id}/comments`,
                 data: newComment,
                 success: function (data) {
                     console.log(data);

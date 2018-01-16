@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // 1) to handle getting all posts and their comments
 app.get('/posts', function (req, res) {
-    Post.find({}, function(err, posts) {
+    Post.find(function(err, posts) {
         if (err) {
             console.error(err);
         } else {
@@ -63,20 +63,25 @@ app.delete('/posts/:_id', function (req, res) {
     }
 });
 // 4) to handle adding a comment to a post
-app.post('/posts/:_id/comments/:newComment', function (req, res) {
-    if (req.params.newComment && req.params._id) {
-        console.log(req.params.newComment);
-        var comment = new Comment({
-            comment: String,
-            userName: String
-        });
-        Post.findOneAndUpdate({_id: id}, function (err, post) {
+app.post('/posts/:_id/comments', function (req, res) {
+    if (req.body && req.params._id) {
+        let comment = {
+            comment: req.body.text,
+            userName: req.body.user
+        };
+        Post.findOne({_id: req.params._id}, function (err, post) {
             if (err) {
-                console.error(err);
+               throw err;
             } else {}
             post.comments.push(comment);
+            post.save(function(err , data){
+                if (err) {
+                    throw err;
+                }
+                res.send({status: "ok", message: data});
+
+            });
         });
-        res.send({status: "ok", message: "Received."});
     } else{
         res.send({status: "nok", message: "Nothing received."});
     }
