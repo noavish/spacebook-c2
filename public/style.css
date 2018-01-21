@@ -1,5 +1,6 @@
 .post {
     padding: 20px 0;
+
 }
 
 .btn-sm {
@@ -12,4 +13,17 @@
 
 .comments-container {
     display: none;
+}
+
+li {
+    list-style: none;
+    vertical-align: middle;
+}
+
+.float-right {
+    float: right;
+}
+
+.comment-li, .buttons {
+    overflow: auto;
 }
