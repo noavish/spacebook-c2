@@ -70,6 +70,25 @@ var SpacebookApp = function() {
         });
     }
 
+//     function addImg() {
+
+//     }
+
+//     $('.uploadImage').submit(function(e){
+//         e.preventDefault();
+        
+//         var title = $('#title').val(); 
+        
+//         $(this).ajaxSubmit({
+//           data: {title: title},
+//           contentType: 'application/json',
+//           success: function(response){
+//             console.log('image uploaded and form submitted');     
+//           }
+//       });
+//         return false;
+//    });
+
     //Get postIndex and postID and remove the post object from the DB and from the view
     var removePost = function(id, postIndex) {
         $.ajax({
@@ -182,8 +201,7 @@ var $posts = $(".posts");
 var app = SpacebookApp();
 
 // Click the addPost - calling the addPost function and clear the fields
-$('#addpost').on('click', function() {
-    debugger
+$('#addpost').on('submit', function() {
     var $input = $("#postText");
     if ($input.val() === "") {
     alert("Please enter text!");
@@ -192,6 +210,10 @@ $('#addpost').on('click', function() {
     $input.val("");
     }
 });
+
+// $('.addpost').on('submit', )
+//preventDefault();
+
 
 // Click the removePost - calling the removePost function
 $posts.on('click', '.remove-post', function() {
